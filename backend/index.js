@@ -1,7 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import router from "./routes/user.route.js";
+import userRoutes from "./routes/user.route.js";
+import authRoutes from "./routes/auth.route.js";
 dotenv.config();
 
 mongoose
@@ -14,9 +15,11 @@ mongoose
   });
 
 const app = express();
+app.use(express.json()); // Allows json as input for backend
 
 app.listen(3000, () => {
   console.log("Server is listening to Port 3000");
 });
 
-app.use("/backend/user", router);
+app.use("/backend/user", userRoutes); // export default can import with a different name
+app.use("/backend/auth", authRoutes);
